@@ -1,0 +1,136 @@
+[
+    {
+      "name": "Retrieve 25B Release Documentation",
+      "ActionCode": "RetrieveOracleReleaseNotes",
+      "group_name": "Oracle Fusion",
+      "sub_group": "ReleaseManagement",
+      "description": "Fetches official Oracle Fusion ERP release notes for specified version",
+      "inputs": [
+        {
+          "name": "ReleaseVersion",
+          "description": "Oracle Fusion ERP release identifier",
+          "data_type": "String",
+          "is_mandatory": true,
+          "StaticValue": "25B"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ReleaseNotesContent",
+          "description": "Full text content of release notes",
+          "data_type": "String",
+          "outputVariableName": "op-RetrieveOracleReleaseNotes-String"
+        }
+      ]
+    },
+    {
+      "name": "Extract Configuration Changes",
+      "ActionCode": "ParseConfigurationChanges",
+      "group_name": "Oracle Fusion",
+      "sub_group": "ReleaseManagement",
+      "description": "Identifies configuration-related changes from release notes",
+      "inputs": [
+        {
+          "name": "ReleaseNotes",
+          "description": "Release notes content to analyze",
+          "data_type": "String",
+          "is_mandatory": true,
+          "ReferencedOutputVariableName": "op-RetrieveOracleReleaseNotes-String"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ConfigChangeList",
+          "description": "List of configuration changes with details",
+          "data_type": "List",
+          "outputVariableName": "op-ExtractConfigurationChanges-List"
+        }
+      ]
+    },
+    {
+      "name": "Analyze Environment Impact",
+      "ActionCode": "CompareConfigurations",
+      "group_name": "Oracle Fusion",
+      "sub_group": "ConfigurationTask",
+      "description": "Compares release changes with current environment configuration",
+      "inputs": [
+        {
+          "name": "SourceEnvironment",
+          "description": "Current production environment to compare",
+          "data_type": "EnvironmentDTO",
+          "is_mandatory": true,
+          "StaticValue": null
+        },
+        {
+          "name": "ReferenceConfiguration",
+          "description": "Configuration changes from release",
+          "data_type": "List",
+          "is_mandatory": true,
+          "ReferencedOutputVariableName": "op-ExtractConfigurationChanges-List"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ImpactAnalysisReport",
+          "description": "Detailed impact assessment report",
+          "data_type": "Document",
+          "outputVariableName": "op-AnalyzeEnvironmentImpact-Document"
+        }
+      ]
+    },
+    {
+      "name": "Generate Test Scenarios",
+      "ActionCode": "GenerateTestScenarios",
+      "group_name": "Oracle Fusion",
+      "sub_group": "QualityAssurance",
+      "description": "Creates test cases based on impact analysis",
+      "inputs": [
+        {
+          "name": "ImpactReport",
+          "description": "Impact analysis document to base tests on",
+          "data_type": "Document",
+          "is_mandatory": true,
+          "ReferencedOutputVariableName": "op-AnalyzeEnvironmentImpact-Document"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TestPlan",
+          "description": "Executable test scenarios document",
+          "data_type": "TestPlanDTO",
+          "outputVariableName": "op-GenerateTestScenarios-TestPlanDTO"
+        }
+      ]
+    },
+    {
+      "name": "Execute Test Cases",
+      "ActionCode": "RunTestCases",
+      "group_name": "Oracle Fusion",
+      "sub_group": "QualityAssurance",
+      "description": "Executes generated test scenarios in test environment",
+      "inputs": [
+        {
+          "name": "TestEnvironment",
+          "description": "Target environment for testing",
+          "data_type": "EnvironmentDTO",
+          "is_mandatory": true,
+          "StaticValue": null
+        },
+        {
+          "name": "TestPlan",
+          "description": "Test scenarios to execute",
+          "data_type": "TestPlanDTO",
+          "is_mandatory": true,
+          "ReferencedOutputVariableName": "op-GenerateTestScenarios-TestPlanDTO"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TestExecutionResults",
+          "description": "Results of executed test cases",
+          "data_type": "TestResultDTO",
+          "outputVariableName": "op-ExecuteTestCases-TestResultDTO"
+        }
+      ]
+    }
+  ]
