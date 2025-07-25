@@ -1,0 +1,24 @@
+The export operation was initiated calling the export API as indicated below. Export operation: submitTaskCSVExport.
+Request ID: 8,274,159. Status: In progress. Submitted By: Test.a.Test. Process Date: 7/25/25 7:00 AM.
+
+The implementation project Manage Chart of Accounts Value Sets_20250725_070039_912 was exported successfully.
+
+Business object: Application Flexfield Value Set. Status: Completed successfully. Status details: 
+	Detail Object: FND_APP_FLEX_VALUE_SET/ValueSet. Status: Completed successfully. Status Details: A total of 0 rows were processed. 0 rows of them failed and 0 rows completed with warnings.
+ATGT2P: Skipping CSV extract of file /tmp/atgt2p/e72bdc11-db36-4915-a0e5-03a57338adc8/FND_APP_FLEX_VALUE_SET/ValueSet/GL/ValueSetSD.xml.gz because its compressed file size 2193965 is larger than 204800
+. Started: 7/25/25 7:00 AM. Ended: 7/25/25 7:13 AM.
+
+The configuration package Manage Chart of Accounts Value Sets_20250725_070039_912 was generated using setup data from environment eqjz with 11.13.25.04.0 revision.
+
+Total Objects Processed: 1
+
+Total Objects Succeeded: 1
+
+Total Objects Failed: 0
+
+Total Objects with Warnings: 0
+
+Total Objects for External Loading: 0
+
+Request ID: 8,274,159. Status: Completed successfully. Submitted By: Test.a.Test. Process Date: 7/25/25 7:13 AM.
+
